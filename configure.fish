@@ -6,9 +6,8 @@ echo "[+] Installing fonts..."
 mkdir -p "$HOME/.local/share/fonts/Hack NF FC Ligatured"
 cp ./fonts/HackNFFCLigatured-Regular.ttf "$HOME/.local/share/fonts/Hack NF FC Ligatured"
 echo "[+] Installing configs..."
-set FISH_CONFIG "$HOME/.config/fish"
-mkdir -p $FISH_CONFIG
-mkdir -p "$FISH_CONFIG/conf.d/"
-cp -r ./functions $FISH_CONFIG
-cp -r ./config "$FISH_CONFIG/conf.d/"
-cp ./var/fish_variables $FISH_CONFIG
+mkdir -p $__fish_config_dir
+mkdir -p "$__fish_config_dir/conf.d/"
+cp -r ./functions $__fish_config_dir
+cp -r ./config "$__fish_config_dir/conf.d/"
+cp ./var/fish_variables $__fish_config_dir
