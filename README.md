@@ -1,2 +1,7 @@
 # my-fish-shell-installation
-my install script with theme and settings
+:heart::fish::shell: My install script with theme and settings
+### [:exclamation:] Support made only for Linux :penguin:
+## Who install? :thinking:
+```
+./install.sh
+```
