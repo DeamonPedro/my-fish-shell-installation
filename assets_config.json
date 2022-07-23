@@ -1,13 +1,20 @@
 {
+  "assets": {
     "config": [
-        "./conf.d/prompt.fish"
+      "./conf.d/prompt.fish"
     ],
     "functions": [
-        "./functions/extract.fish",
-        "./functions/getmagnet.fish",
-        "./functions/json.fish"
+      "./functions/extract.fish",
+      "./functions/getmagnet.fish",
+      "./functions/json.fish"
     ],
     "bin": [
-        "./bin/jfq"
+      "./bin/jfq"
     ]
+  },
+  "plugins": [
+    "jorgebucaran/fisher",
+    "jorgebucaran/replay.fish",
+    "jorgebucaran/autopair.fish"
+  ]
 }

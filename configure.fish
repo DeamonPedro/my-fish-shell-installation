@@ -1,17 +1,15 @@
-echo "[+] Installing fish plugins..."
-curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
-fisher install jorgebucaran/replay.fish
-fisher install jorgebucaran/autopair.fish
-
 echo "[+] Installing fonts..."
 mkdir -p "$HOME/.local/share/fonts/Hack NF FC Ligatured"
 cp ./fonts/HackNFFCLigatured-Regular.ttf "$HOME/.local/share/fonts/Hack NF FC Ligatured"
 
-echo "[+] Installing assets..."
-set assets_dirs (./bin/jfq '$keys()' assets_config.json)
-for dir in $assets_dirs
+curl -sL https://git.io/fisher | source
+for plugin in (./bin/jfq 'plugins' assets_config.json)
+    echo "[+] Installing plugin [$plugin]..."
+    fisher install "$plugin" >/dev/null
+end
+for dir in (./bin/jfq 'assets.$keys()' assets_config.json)
     mkdir -p $dir
-    for file in (./bin/jfq "$dir" assets_config.json)
+    for file in (./bin/jfq "assets.$dir" assets_config.json)
         set from_path "$dir"/(basename "$file")
         set to_path (realpath -m "$__fish_config_dir/$file")
         echo "[+] Copying [$from_path] to [$to_path]..."
