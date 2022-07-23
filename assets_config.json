@@ -1,0 +1,13 @@
+{
+    "config": [
+        "./conf.d/prompt.fish"
+    ],
+    "functions": [
+        "./functions/extract.fish",
+        "./functions/getmagnet.fish",
+        "./functions/json.fish"
+    ],
+    "bin": [
+        "./bin/jfq"
+    ]
+}

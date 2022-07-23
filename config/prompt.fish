@@ -108,9 +108,9 @@ end
 
 alias update "sudo apt update"
 alias upgrade "sudo apt upgrade"
-abbr install "sudo apt install"
-abbr remove "sudo apt remove"
 alias autoremove "sudo apt autoremove"
 alias clear "tput reset"
+abbr install "sudo apt install"
+abbr remove "sudo apt remove"
 abbr mi "micro"
 abbr py "python3"
