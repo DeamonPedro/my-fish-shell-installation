@@ -7,12 +7,9 @@
       "./functions/extract.fish",
       "./functions/getmagnet.fish",
       "./functions/json.fish"
-    ],
-    "bin": [
-      "./bin/jfq"
     ]
   },
-  "plugins": [
+  "fish_plugins": [
     "jorgebucaran/fisher",
     "jorgebucaran/replay.fish",
     "jorgebucaran/autopair.fish"
