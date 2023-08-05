@@ -12,6 +12,7 @@
   "fish_plugins": [
     "jorgebucaran/fisher",
     "jorgebucaran/replay.fish",
-    "jorgebucaran/autopair.fish"
+    "jorgebucaran/autopair.fish",
+    "acomagu/fish-async-prompt"
   ]
 }

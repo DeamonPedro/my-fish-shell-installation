@@ -7,6 +7,5 @@ function json -d "json short for data-selector" -a 'file' -a 'query'
         echo "json: invalid arguments"
         return
     end
-    set jfq (readlink -f ../bin/jfq)
-    cat "$file" | eval "$__fish_config_dir/bin/jfq '$query' -j" | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"
+    cat "$file" | jfq "$query" -j | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"
 end
