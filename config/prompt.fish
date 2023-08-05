@@ -80,7 +80,7 @@ function __git_sync_info
             set_color "#FFD700"
             echo -n " "
         end
-        if test -z $info
+        if test $github -eq 0 -a $git -eq 0 -a $unmerged_files -eq 0
             set_color "#32CD32"
             echo -n " "
         end
