@@ -60,7 +60,12 @@ end
 
 function __git_sync_info
     if test (git status 2> /dev/null | wc -l) -gt 0
-        set last_fetch_time (stat -c %Y (git rev-parse --show-toplevel)/.git/FETCH_HEAD)
+        if test -e (git rev-parse --show-toplevel)/.git/FETCH_HEAD
+            set head_file (git rev-parse --show-toplevel)/.git/FETCH_HEAD
+        else
+            set head_file (git rev-parse --show-toplevel)/.git/HEAD
+        end
+        set last_fetch_time (stat -c %Y $head_file)
         if test (date -d 'now - 5 seconds' +%s) -ge $last_fetch_time
             git fetch --quiet 2>/dev/null
         end

@@ -13,6 +13,6 @@
     "jorgebucaran/fisher",
     "jorgebucaran/replay.fish",
     "jorgebucaran/autopair.fish",
-    "acomagu/fish-async-prompt"
+    "qiuxiang/flutter-fish-completions"
   ]
 }
