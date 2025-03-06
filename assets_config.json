@@ -1,5 +1,8 @@
 {
   "assets": {
+    "completions": [
+      "./completions/fisher.fish"
+    ],
     "config": [
       "./conf.d/prompt.fish"
     ],
