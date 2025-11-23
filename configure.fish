@@ -5,13 +5,13 @@ echo "[+] Installing bin..."
 sudo cp -r ./prebuilt_bin/* /usr/local/bin/
 
 curl -sL https://git.io/fisher | source
-for plugin in (jq 'fish_plugins' assets_config.json)
+for plugin in (jq -r '.fish_plugins[]' assets_config.json)
     echo "[+] Installing plugin [$plugin]..."
     fisher install "$plugin" >/dev/null
 end
-for dir in (jq 'assets.$keys()' assets_config.json)
+for dir in (jq -r '.assets | keys[]' assets_config.json)
     mkdir -p $dir
-    for file in (jq "assets.$dir" assets_config.json)
+    for file in (jq -r --arg dir "$dir" '.assets[$dir][]' assets_config.json)
         set from_path "$dir"/(basename "$file")
         set to_path (realpath -m "$__fish_config_dir/$file")
         echo "[+] Copying [$from_path] to [$to_path]..."
