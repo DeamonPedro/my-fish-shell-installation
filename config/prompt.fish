@@ -1,22 +1,22 @@
 set divider ""
-set default_folder_style "*: :#007766"
+set default_folder_style "*: :#b68f2f"
 set shorten_path_from 2
-set folder_styles "/: :#007766" \
-    "$HOME: :#00875F" \
-    "/etc*:漣:#007766" \
-    "/root*: :#007766" \
-    "$HOME/.config*:襁:#007766" \
-    "$HOME/Downloads*: :#007766" \
-    "$HOME/Pictures*: :#007766" \
-    "$HOME/Desktop*: :#007766" \
-    "$HOME/Music*:ﱘ :#007766" \
-    "$HOME/Videos*: :#007766" \
-    "$HOME/Documents*: :#007766" \
-    "$HOME/Backup*: :#007766" \
-    "$HOME/Share*: :#007766" \
-    "/media/*/Windows*: :#007766" \
-    "/sys*: :#007766" \
-    "/media*: :#007766"
+set folder_styles "/: :#b68f2f" \
+    "$HOME: :#b99d31" \
+    "/etc*:漣:#b68f2f" \
+    "/root*: :#b68f2f" \
+    "$HOME/.config*:襁:#b68f2f" \
+    "$HOME/Downloads*: :#b68f2f" \
+    "$HOME/Pictures*: :#b68f2f" \
+    "$HOME/Desktop*: :#b68f2f" \
+    "$HOME/Music*:ﱘ :#b68f2f" \
+    "$HOME/Videos*: :#b68f2f" \
+    "$HOME/Documents*: :#b68f2f" \
+    "$HOME/Backup*: :#b68f2f" \
+    "$HOME/Share*: :#b68f2f" \
+    "/media/*/Windows*: :#b68f2f" \
+    "/sys*: :#b68f2f" \
+    "/media*: :#b68f2f"
 
 function fish_prompt
     set_color brwhite --background "#121212"
@@ -59,20 +59,35 @@ function fish_right_prompt -d "Write out the right prompt"
 end
 
 function __git_sync_info
-    if test (git status 2> /dev/null | wc -l) -gt 0
+    if test (git rev-parse --is-inside-work-tree 2>/dev/null)
         if test -e (git rev-parse --show-toplevel)/.git/FETCH_HEAD
             set head_file (git rev-parse --show-toplevel)/.git/FETCH_HEAD
         else
             set head_file (git rev-parse --show-toplevel)/.git/HEAD
         end
-        set last_fetch_time (stat -c %Y $head_file)
-        if test (date -d 'now - 5 seconds' +%s) -ge $last_fetch_time
-            git fetch --quiet 2>/dev/null
+
+        set last_fetch_time (stat -c %Y $head_file 2>/dev/null)
+        if test -n "$last_fetch_time"
+            if test (date -d 'now - 5 seconds' +%s) -ge $last_fetch_time
+                git fetch --quiet 2>/dev/null
+            end
         end
-        set -g remote (git remote)
-        set -g github (git rev-list --count "HEAD..@{upstream}")
-        set -g git (git rev-list --count "@{upstream}..HEAD")
-        set -g unmerged_files (git ls-files -u | wc -l)
+
+        set upstream (git rev-parse --abbrev-ref --symbolic-full-name @{upstream} 2>/dev/null)
+
+        if test -n "$upstream"
+            set -g github (git rev-list --count "HEAD..$upstream" 2>/dev/null)
+            set -g git (git rev-list --count "$upstream..HEAD" 2>/dev/null)
+        else
+            set -g github 0
+            set -g git 0
+        end
+
+        set -g unmerged_files (git ls-files -u 2>/dev/null | wc -l)
+        set -q github; or set github 0
+        set -q git; or set git 0
+        set -q unmerged_files; or set unmerged_files 0
+
         if test $unmerged_files -gt 0
             set_color "#E91D14"
             echo -n " "
@@ -91,6 +106,7 @@ function __git_sync_info
         end
     end
 end
+
 
 function __git_info
     if test (git status 2> /dev/null | wc -l) -gt 0
@@ -123,12 +139,10 @@ function __git_sync_info_loading_indicator -a last_prompt
     echo -n (set_color "#878787")"$uncolored_last_prompt"(set_color normal)
 end
 
-alias update "sudo apt update"
-alias upgrade "sudo apt upgrade"
-alias autoremove "sudo apt autoremove"
+alias autoremove "pacman -Rns $(pacman -Qdtq)"
 alias clear "tput reset"
-abbr install "sudo apt install"
-abbr remove "sudo apt remove"
+abbr install "sudo pacman -Syu"
+abbr remove "sudo pacman -Rns"
 abbr mi micro
 abbr py python3
 alias ls='logo-ls'

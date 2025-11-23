@@ -16,6 +16,8 @@
     "jorgebucaran/fisher",
     "jorgebucaran/replay.fish",
     "jorgebucaran/autopair.fish",
-    "qiuxiang/flutter-fish-completions"
+    "qiuxiang/flutter-fish-completions",
+    "patrickf1/fzf.fish",
+    "kidonng/zoxide.fish"
   ]
 }
